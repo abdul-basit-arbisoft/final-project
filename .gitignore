@@ -1,0 +1,15 @@
+# Environment
+.env
+project_venv/
+.vscode/
+
+# Django
+linkedin_clone/db.sqlite3
+
+linkedin_clone/linkedin_clone/__pycache__/
+
+linkedin_clone/core/__pycache__/
+linkedin_clone/core/migrations/__pycache__/
+
+linkedin_clone/feed/__pycache__/
+linkedin_clone/feed/migrations/__pycache__/

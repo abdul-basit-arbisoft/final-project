@@ -6,9 +6,11 @@ from . import views
 app_name = 'core'
 
 urlpatterns = [
+    path('', views.home_view, name='home_view'),
+
     path('register/', views.UserRegistrationView.as_view(), name='register'),
 
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/',  TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('change_password/<int:pk>/', views.ChangePasswordView.as_view(), name='change_password'),

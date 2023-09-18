@@ -135,30 +135,40 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    """Serializer class for the user."""
+
     class Meta:
         model = UserProfile
         fields = '__all__'
 
 
 class ExperienceSerializer(serializers.ModelSerializer):
+    """Serializer class for Experiences of user."""
+
     class Meta:
         model = Experience
         fields = '__all__'
 
 
 class EducationSerializer(serializers.ModelSerializer):
+    """Serializer class for Education of user."""
+
     class Meta:
         model = Education
         fields = '__all__'
 
 
 class CertificationSerializer(serializers.ModelSerializer):
+    """Serializer class for Certifications of user."""
+
     class Meta:
         model = Certification
         fields = '__all__'
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    """Serializer class for Courses of user."""
+
     class Meta:
         model = Course
         fields = '__all__'
