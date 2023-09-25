@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CustomUser, UserProfile, Education, Certification, Course, Experience
+from .models import CustomUser, UserProfile, Education, Certification, Course, Experience, Follow, Notification
 
 admin.site.site_header = 'LinkedIn Clone'
 
@@ -74,3 +74,19 @@ class ModelAdminCourse(admin.ModelAdmin):
     ordering = ['-created_at']
 
 admin.site.register(Course, ModelAdminCourse)
+
+
+class ModelAdminFollow(admin.ModelAdmin):
+    """Admin for Follow model."""
+
+    list_display = ['id', 'follower', 'following']
+
+admin.site.register(Follow, ModelAdminFollow)
+
+
+class ModelAdminNotifications(admin.ModelAdmin):
+    """Admin for Notifications model."""
+
+    list_display = ['id', 'receiver', 'message', 'is_read']
+
+admin.site.register(Notification, ModelAdminNotifications)

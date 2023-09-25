@@ -13,7 +13,6 @@ class Post(TimeStampMixin):
     text_body = models.TextField(max_length=500)
     saved_by = models.ManyToManyField(UserProfile, related_name='saves_posts', blank=True)
     edited = models.BooleanField(default=False)
-    viewed_by = models.ManyToManyField(UserProfile, related_name='viewed_posts', blank=True)
     shared_by = models.ManyToManyField(UserProfile, related_name='shared_posts', blank=True)
     reacted_by = models.ManyToManyField(UserProfile, through='PostReaction', related_name='reacted_posts', blank=True)
     commented_by = models.ManyToManyField(UserProfile, through='Comment', related_name='commented_posts', blank=True)

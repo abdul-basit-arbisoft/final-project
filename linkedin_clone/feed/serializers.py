@@ -30,7 +30,6 @@ class PostSerializer(serializers.ModelSerializer):
     post_images = PostMediaSerializer(many=True)
     reacted_by = serializers.StringRelatedField(many=True)
     commented_by = serializers.StringRelatedField(many=True)
-    viewed_by = UserProfileSerializer(many=True)
     shared_by = UserProfileSerializer(many=True)
     text_body = serializers.CharField()
     number_of_reactions = serializers.SerializerMethodField()

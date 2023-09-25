@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 
 from .serializers import (
     RegistrationSerializer, ChangePasswordSerializer, UpdateUserSerializer, UserProfileSerializer,
-    EducationSerializer, ExperienceSerializer, CourseSerializer, CertificationSerializer
+    EducationSerializer, ExperienceSerializer, CourseSerializer, CertificationSerializer, FollowersSerializer
 )
 from .models import UserProfile, Education, Certification, Course, Experience
 
@@ -77,12 +77,21 @@ class UserProfileListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
 
+    def get_queryset(self):
+        """Returns only the object related to current user"""
+        user = self.request.user
+        return UserProfile.objects.filter(user=user)
+
+
+
+
 class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     """Handles the retrieval, updating, and deletion of individual user profiles."""
 
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
+
 
 
 class EducationListCreateView(generics.ListCreateAPIView):

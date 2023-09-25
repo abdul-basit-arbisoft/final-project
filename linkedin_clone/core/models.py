@@ -82,6 +82,35 @@ class UserProfile(TimeStampMixin):
     def __str__(self):
         return self.user.username
 
+    @property
+    def followers_count(self):
+        """Number of followers for this UserProfile."""
+        return Follow.objects.filter(following=self.user).count()
+    
+    @property
+    def following_count(self):
+        """Number of people the UserProfile is following."""
+        return Follow.objects.filter(follower=self.user).count()
+    
+    @property
+    def connections_count(self):
+        "Number of connections for this UserProfile."
+        return Follow.objects.filter(connections=self.user).count()
+
+
+class Follow(TimeStampMixin):
+    """Model to represent followers and following relationship."""
+
+    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='following')
+    following = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='followers')
+
+    class Meta:
+        verbose_name = 'Follow'
+        verbose_name_plural = 'Follows'
+        unique_together = ('follower', 'following')
+
+    def __str__(self):
+        return f"{self.follower.user.username} follows {self.following.user.username}"
 
 class Experience(TimeStampMixin):
     """Contain experience fields about the User."""
@@ -153,3 +182,10 @@ class Course(TimeStampMixin):
     course_name = models.CharField(max_length=40)
     course_code = models.CharField(max_length=10)
     associated_with = models.CharField(max_length=40)
+
+class Notification(TimeStampMixin):
+    """Notification Model."""
+
+    receiver = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)

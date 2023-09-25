@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
-from .models import UserProfile, Experience, Education, Certification, Course
+from .models import UserProfile, Experience, Education, Certification, Course, Follow
 
 User = get_user_model()
 
@@ -137,8 +137,31 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     """Serializer class for the user."""
 
+    followers_count =serializers.SerializerMethodField()
+    following_count =serializers.SerializerMethodField()
+
     class Meta:
         model = UserProfile
+        fields = (
+            'id', 'user', 'profile_pic', 'cover_pic', 'headline', 'summary',
+            'location', 'industry', 'website', 'phone_number', 'birthdate',
+            'age', 'gender', 'followers_count', 'following_count'
+        )
+
+    def get_followers_count(self, obj):
+        """Number of followers for this UserProfile."""
+        return obj.following.count()
+
+    def get_following_count(self, obj):
+        """Number of people this UserProfile is following."""
+        return obj.followers.count()
+
+
+class FollowersSerializer(serializers.ModelSerializer):
+    """Serializer class for Follow model"""
+
+    class Meta:
+        model = Follow
         fields = '__all__'
 
 
